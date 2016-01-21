@@ -2,11 +2,13 @@
 #!python
 import glob
 TOOLCHAIN='/home/august/programs/gcc-arm-none-eabi-4_9-2015q3'
+sdkdir="/mnt/osxold/programs/nrf51sdk"
+
 PREFIX=TOOLCHAIN+'/bin/arm-none-eabi-'
-env = Environment(CC = '/home/august/programs/gcc-arm-none-eabi-4_9-2015q3/bin/arm-none-eabi-gcc', CXX = '/home/august/programs/gcc-arm-none-eabi-4_9-2015q3/bin/arm-none-eabi-g++',
+env = Environment(CC = TOOLCHAIN+'/bin/arm-none-eabi-gcc', CXX = TOOLCHAIN+'/bin/arm-none-eabi-g++',
 	AS=PREFIX+"as")
 
-sdkdir="/mnt/osxold/programs/nrf51sdk"
+
 cfiles="{SDKDIR}/components/libraries/button/app_button.c \
 {SDKDIR}/components/libraries/util/app_error.c \
 {SDKDIR}/components/libraries/fifo/app_fifo.c \
@@ -35,7 +37,7 @@ cfiles="{SDKDIR}/components/libraries/button/app_button.c \
 {SDKDIR}/components/libraries/uart/retarget.c \
 ".format(SDKDIR=sdkdir).split()
 
-asmfiles= ["src/gcc_startup_nrf51.s".format(SDKDIR="/mnt/osxold/programs/nrf51sdk")]
+asmfiles= ["src/gcc_startup_nrf51.s"]
 #glob.glob("src/*.c")
 elftarget='build/midilib_test.elf'
 t=env.Program(target=elftarget, source=
